@@ -56,3 +56,7 @@ h5 span {
 .col-lg-offset-4 p {
     margin-bottom:3px;
 }
+
+.gc-container {
+    text-align: initial;
+}

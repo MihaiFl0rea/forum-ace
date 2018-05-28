@@ -18,6 +18,8 @@
 
     // The character limiter at the list page, zero(0) value if you don't want character limiter at your list page
     $config['grocery_crud_character_limiter'] = 30;
+    // Also limit one word strings
+    $config['grocery_crud_character_limiter_per_word'] = 20;
 
     // All the forms are opening with dialog forms without refreshing the page once again.
     // IMPORTANT: PLease be aware that this functionality is still in BETA phase and it is

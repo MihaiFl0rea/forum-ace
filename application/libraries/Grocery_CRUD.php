@@ -393,10 +393,17 @@ class grocery_CRUD_Field_Types
 			return $str;
 		}
 
+		$strArr = explode(' ', trim($str));
 		$out = '';
-		foreach (explode(' ', trim($str)) as $val)
-		{
-			$out .= $val.' ';
+        foreach ($strArr as $val)
+        {
+            // if string has just one word and it exceeds character_limiter_per_word
+            if ((count($strArr) === 1) && (mb_strlen($val) > $this->character_limiter_per_word)) {
+                // return just first character_limiter_per_word followed by ...
+                return mb_substr($val, 0, $this->character_limiter_per_word) . '...';
+            }
+
+            $out .= $val.' ';
 
 			if (strlen($out) >= $n)
 			{
@@ -3579,6 +3586,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 	protected $js_date_format		= null;
 	protected $ui_date_format		= null;
 	protected $character_limiter    = null;
+    protected $character_limiter_per_word    = null;
 	protected $config    			= null;
 
 	protected $add_fields			= null;
@@ -4557,6 +4565,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 		$this->config->default_text_editor	= $ci->config->item('grocery_crud_default_text_editor');
 		$this->config->text_editor_type		= $ci->config->item('grocery_crud_text_editor_type');
 		$this->config->character_limiter	= $ci->config->item('grocery_crud_character_limiter');
+        $this->config->character_limiter_per_word	= $ci->config->item('grocery_crud_character_limiter_per_word');
 		$this->config->dialog_forms			= $ci->config->item('grocery_crud_dialog_forms');
 		$this->config->paging_options		= $ci->config->item('grocery_crud_paging_options');
         $this->config->default_theme        = $ci->config->item('grocery_crud_default_theme');
@@ -4570,6 +4579,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 		$this->default_theme_path					= $this->default_assets_path.'/themes';
 
 		$this->character_limiter = $this->config->character_limiter;
+        $this->character_limiter_per_word = $this->config->character_limiter_per_word;
 
 		if ($this->character_limiter === 0 || $this->character_limiter === '0') {
 			$this->character_limiter = 1000000; //a very big number
