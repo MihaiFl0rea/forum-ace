@@ -22,10 +22,14 @@ class Main extends CI_Controller
         if (empty($this->session->userdata['email'])) {
             redirect(site_url() . '/main/login/');
         }
+        $this->load->library('grocery_CRUD');
+        $crud = new grocery_CRUD();
+        $this->grocery_crud->set_table('users');
+        $output = $this->grocery_crud->render();
         /*front page*/
         $data = $this->session->userdata;
         $this->load->view('header');
-        $this->load->view('index', $data);
+        $this->load->view('example', $output);
         $this->load->view('footer');
     }
 
