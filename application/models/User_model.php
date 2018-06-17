@@ -17,24 +17,23 @@ class User_model extends CI_Model
     public function insertUser($postData)
     {
         $string = array(
-            'first_name' => $postData['firstname'],
-            'last_name' => $postData['lastname'],
+            'username' => $postData['username'],
             'email' => $postData['email'],
-            'role' => $this->roles[0],
+            'role' => $this->roles[1],
             'status' => $this->status[0]
         );
-        $q = $this->db->insert_string('users', $string);
+        $q = $this->db->insert_string('backend_user', $string);
         $this->db->query($q);
         return $this->db->insert_id();
     }
 
-    public function isDuplicate($email)
+    public function isDuplicate($email, $usersTable)
     {
-        $this->db->get_where('users', array('email' => $email), 1);
+        $this->db->get_where($usersTable, array('email' => $email), 1);
         return $this->db->affected_rows() > 0 ? TRUE : FALSE;
     }
 
-    public function insertToken($userId)
+    public function insertToken($userId, $userType)
     {
         $token = substr(sha1(rand()), 0, 30);
         $date = date('Y-m-d');
@@ -42,6 +41,7 @@ class User_model extends CI_Model
         $string = array(
             'token' => $token,
             'user_id' => $userId,
+            'user_type' => $userType,
             'created' => $date
         );
         $query = $this->db->insert_string('tokens', $string);
@@ -49,7 +49,7 @@ class User_model extends CI_Model
         return $token . $userId;
     }
 
-    public function isTokenValid($token)
+    public function isTokenValid($token, $usersTable)
     {
         $tkn = substr($token, 0, 30);
         $uid = substr($token, 30);
@@ -70,7 +70,7 @@ class User_model extends CI_Model
                 return false;
             }
 
-            $user_info = $this->getUserInfo($row->user_id);
+            $user_info = $this->getUserInfo($row->user_id, $usersTable);
             return $user_info;
 
         } else {
@@ -78,9 +78,9 @@ class User_model extends CI_Model
         }
     }
 
-    public function getUserInfo($id)
+    public function getUserInfo($id, $usersTable)
     {
-        $q = $this->db->get_where('users', array('id' => $id), 1);
+        $q = $this->db->get_where($usersTable, array('id' => $id), 1);
         if ($this->db->affected_rows() > 0) {
             $row = $q->row();
             return $row;
@@ -90,7 +90,7 @@ class User_model extends CI_Model
         }
     }
 
-    public function updateUserInfo($post)
+    public function updateUserInfo($post, $usersTable)
     {
         $data = array(
             'password' => $post['password'],
@@ -98,7 +98,7 @@ class User_model extends CI_Model
             'status' => $this->status[1]
         );
         $this->db->where('id', $post['user_id']);
-        $this->db->update('users', $data);
+        $this->db->update($usersTable, $data);
         $success = $this->db->affected_rows();
 
         if (!$success) {
@@ -106,16 +106,16 @@ class User_model extends CI_Model
             return false;
         }
 
-        $user_info = $this->getUserInfo($post['user_id']);
+        $user_info = $this->getUserInfo($post['user_id'], $usersTable);
         return $user_info;
     }
 
-    public function checkLogin($post)
+    public function checkLogin($post, $usersTable)
     {
         $this->load->library('password');
         $this->db->select('*');
         $this->db->where('email', $post['email']);
-        $query = $this->db->get('users');
+        $query = $this->db->get($usersTable);
         $userInfo = $query->row();
 
         if (!$this->password->validate_password($post['password'], $userInfo->password)) {
@@ -123,22 +123,22 @@ class User_model extends CI_Model
             return false;
         }
 
-        $this->updateLoginTime($userInfo->id);
+        $this->updateLoginTime($userInfo->id, $usersTable);
 
         unset($userInfo->password);
         return $userInfo;
     }
 
-    public function updateLoginTime($id)
+    public function updateLoginTime($id, $usersTable)
     {
         $this->db->where('id', $id);
-        $this->db->update('users', array('last_login' => date('Y-m-d h:i:s A')));
+        $this->db->update($usersTable, array('last_login' => date('Y-m-d h:i:s A')));
         return;
     }
 
-    public function getUserInfoByEmail($email)
+    public function getUserInfoByEmail($email, $usersTable)
     {
-        $query = $this->db->get_where('users', array('email' => $email), 1);
+        $query = $this->db->get_where($usersTable, array('email' => $email), 1);
         if ($this->db->affected_rows() > 0) {
             $row = $query->row();
             return $row;
@@ -148,10 +148,10 @@ class User_model extends CI_Model
         }
     }
 
-    public function updatePassword($post)
+    public function updatePassword($post, $usersTable)
     {
         $this->db->where('id', $post['user_id']);
-        $this->db->update('users', array('password' => $post['password']));
+        $this->db->update($usersTable, array('password' => $post['password']));
         $success = $this->db->affected_rows();
 
         if (!$success) {

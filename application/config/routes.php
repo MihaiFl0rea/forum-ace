@@ -53,3 +53,9 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['assets/(:any)'] = 'assets/$1';
+
+$route['admin'] = 'Admin_main/index';
+$route['admin/login'] = 'Admin_main/login';
+$route['admin/register'] = 'Admin_main/register';
+$route['admin/forgot'] = 'Admin_main/forgot';
+$route['admin/logout'] = 'Admin_main/logout';

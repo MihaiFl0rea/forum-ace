@@ -1,5 +1,6 @@
 .table-label {
-  background: #DDD;
+  /*background: #DDD;*/
+  border-bottom: 2px solid #dee2e6;
   width: 100%;
   padding: 5px;
   text-align: left;

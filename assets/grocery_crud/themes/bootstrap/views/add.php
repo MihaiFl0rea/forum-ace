@@ -27,12 +27,12 @@
                     <div class="floatL l5">
                         <?php echo $this->l('form_add'); ?> <?php echo $subject?>
                     </div>
-                    <div class="floatR r5 minimize-maximize-container minimize-maximize">
+                    <!--<div class="floatR r5 minimize-maximize-container minimize-maximize">
                         <i class="fa fa-caret-up"></i>
                     </div>
                     <div class="floatR r5 gc-full-width">
                         <i class="fa fa-expand"></i>
-                    </div>
+                    </div>-->
                     <div class="clear"></div>
                 </div>
                 <div class="form-container table-container">

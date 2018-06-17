@@ -6,11 +6,11 @@
 	$lang['list_paging_of'] 		= 'de';
 	$lang['list_displaying']		= 'Afisaj de {start} la {end} din {results} inregistrari';
 	$lang['list_filtered_from']		= '(filtru din {total_results} inregistrari in total)';
-	$lang['list_show_entries']		= 'afisaj de {paging} inregistrari';
-	$lang['list_no_items']			= 'nicio inregistrare gasita';
-	$lang['list_zero_entries']		= 'afisaj de 0 la 0 din 0 inregistrari';
+	$lang['list_show_entries']		= 'Afisaj de {paging} inregistrari';
+	$lang['list_no_items']			= 'Nicio inregistrare gasita';
+	$lang['list_zero_entries']		= 'Afisaj de 0 la 0 din 0 inregistrari';
 	$lang['list_search'] 			= 'Cauta';	
-	$lang['list_search_all'] 		= 'toate criteriile';
+	$lang['list_search_all'] 		= 'Toate criteriile';
 	$lang['list_clear_filtering'] 	= 'Initializare filtre';
 	$lang['list_delete'] 			= 'Sterge';
 	$lang['list_edit'] 				= 'Editeaza';	
@@ -75,7 +75,7 @@
 	$lang['list_print'] 	= "Printare";
 	$lang['minimize_maximize'] = 'Minimizare/Maximizare';
 	/* Added in version 1.4 */
-	$lang['list_view'] = 'View';
+	$lang['list_view'] = 'Vezi';
 
 	/* Added in version 1.5.1 */
 	$lang['ui_day'] = 'dd';
@@ -83,18 +83,18 @@
 	$lang['ui_year'] = 'yyyy';
 
 	/* Added in version 1.5.2 */
-	$lang['list_more'] = 'More';
+	$lang['list_more'] = 'Mai mult';
 
 	/* Added in version 1.5.6 */
-	$lang['list_search_column'] = 'Search {column_name}';
+	$lang['list_search_column'] = 'Cauta {column_name}';
 
 	/* Added in version 1.5.8 */
-	$lang['alert_delete_multiple'] = 'Are you sure that you want to delete those {items_amount} items?';
+	$lang['alert_delete_multiple'] = 'Sunteti sigur ca vreti sa stergeti acele {items_amount} iteme?';
 
-	$lang['alert_delete_multiple_one'] = 'Are you sure that you want to delete this 1 item?';
+	$lang['alert_delete_multiple_one'] = 'Sunteti sigur ca vreti sa stergeti acest item?';
 
 
 
 	/* Added in version 1.6.1 */
-	$lang['list_clone'] = 'Clone';
+	$lang['list_clone'] = 'Cloneaza';
 

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller
+class Admin_main extends CI_Controller
 {
 
     public $status;
@@ -16,35 +16,31 @@ class Main extends CI_Controller
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
-        $this->usersTable = 'student';
+        $this->usersTable = 'backend_user';
     }
 
     public function index()
     {
         if (empty($this->session->userdata['email'])) {
-            redirect(site_url() . 'main/login/');
+            redirect(site_url() . 'admin/login/');
         }
-        /*$this->load->library('grocery_CRUD');
+        $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
-        $this->grocery_crud->set_table('users');
-        $output = $this->grocery_crud->render();*/
+        $this->grocery_crud->set_table('backend_user');
+        $output = $this->grocery_crud->render();
+//        log_message('info', $output);
         /*front page*/
         $data = $this->session->userdata;
-        $this->load->view('header');
-//        $this->load->view('example', $output);
-        $this->load->view('footer');
+        $this->load->view('admin/page_blank', $output);
     }
 
     public function register()
     {
-        $this->form_validation->set_rules('firstname', 'First Name', 'required');
-        $this->form_validation->set_rules('lastname', 'Last Name', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('header');
-            $this->load->view('register');
-            $this->load->view('footer');
+            $this->load->view('admin/page_register');
         } else {
             if ($this->user_model->isDuplicate($this->input->post('email'), $this->usersTable)) {
                 $this->session->set_flashdata('flash_message', 'User email already exists');
@@ -53,7 +49,7 @@ class Main extends CI_Controller
 
                 $clean = $this->security->xss_clean($this->input->post(NULL, TRUE));
                 $id = $this->user_model->insertUser($clean);
-                $token = $this->user_model->insertToken($id, $this->role[0]);
+                $token = $this->user_model->insertToken($id,$this->roles[1]);
 
                 $qstring = $this->base64url_encode($token);
                 $url = site_url() . 'main/complete/token/' . $qstring;
@@ -136,19 +132,20 @@ class Main extends CI_Controller
 
     public function login()
     {
+//        die('on login');
         // if somehow the user is logged but he's accessing the login page, redirect him to home page
         if (!empty($this->session->userdata['email'])) {
             /*go to home page*/
-            redirect(site_url() . 'main/');
+            redirect(site_url() . 'admin');
         }
 
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('header');
-            $this->load->view('login');
-            $this->load->view('footer');
+//            $this->load->view('header');
+            $this->load->view('admin/page_login');
+//            $this->load->view('footer');
         } else {
             $post = $this->input->post();
             $clean = $this->security->xss_clean($post);
@@ -157,19 +154,20 @@ class Main extends CI_Controller
 
             if (!$userInfo) {
                 $this->session->set_flashdata('flash_message', 'The login was unsuccessful');
-                redirect(site_url() . 'main/login');
+                redirect(site_url() . 'admin/login');
             }
             foreach ($userInfo as $key => $val) {
                 $this->session->set_userdata($key, $val);
             }
-            redirect(site_url() . 'main/');
+            redirect(site_url() . 'admin');
         }
     }
 
     public function logout()
     {
+        var_dump($this->session);
         $this->session->sess_destroy();
-        redirect(site_url() . 'main/login/');
+        redirect(site_url() . 'admin/login/');
     }
 
     public function forgot()
@@ -192,11 +190,11 @@ class Main extends CI_Controller
 
             if ($userInfo->status != $this->status[1]) { //if status is not approved
                 $this->session->set_flashdata('flash_message', 'Your account is not in approved status');
-                redirect(site_url() . 'main/login');
+                redirect(site_url() . 'admin/login');
             }
 
             //build token
-            $token = $this->user_model->insertToken($userInfo->id, $this->role[0]);
+            $token = $this->user_model->insertToken($userInfo->id, $this->roles[1]);
             $qstring = $this->base64url_encode($token);
             $url = site_url() . 'main/reset_password/token/' . $qstring;
             $link = '<a href="' . $url . '">' . $url . '</a>';
@@ -257,7 +255,7 @@ class Main extends CI_Controller
             } else {
                 $this->session->set_flashdata('flash_message', 'Your password has been updated. You may now login');
             }
-            redirect(site_url() . 'main/login');
+            redirect(site_url() . 'admin/login');
         }
     }
 

@@ -87,12 +87,12 @@
                     <div class="floatL l5">
                         <?php echo $subject_plural; ?>
                     </div>                  
-                    <div class="floatR r5 minimize-maximize-container minimize-maximize">
+                    <!--<div class="floatR r5 minimize-maximize-container minimize-maximize">
                         <i class="fa fa-caret-up"></i>
                     </div>
                     <div class="floatR r5 gc-full-width">
                         <i class="fa fa-expand"></i>                        
-                    </div>                      
+                    </div>  -->
                     <div class="clear"></div>
                 </div>
                 <div class="table-container">
@@ -243,7 +243,7 @@
 
 
                                             <!-- "Displaying 1 to 10 of 116 items" -->
-                                            <div class="floatR r10 t30">
+                                            <div class="floatR r10 t20">
                                                 <?php echo $list_displaying; ?>
                                                 <span class="full-total-container hidden">
                                                     <?php echo str_replace(
