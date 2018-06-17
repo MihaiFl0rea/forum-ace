@@ -24,14 +24,10 @@ class Admin_main extends CI_Controller
         if (empty($this->session->userdata['email'])) {
             redirect(site_url() . 'admin/login/');
         }
-        $this->load->library('grocery_CRUD');
-        $crud = new grocery_CRUD();
-        $this->grocery_crud->set_table('backend_user');
-        $output = $this->grocery_crud->render();
-//        log_message('info', $output);
+
         /*front page*/
         $data = $this->session->userdata;
-        $this->load->view('admin/page_blank', $output);
+        $this->load->view('admin/page_blank');
     }
 
     public function register()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <?php $this->view('admin/includes/header', array('grocerycrud' => 'true')); ?>
+    <?php $this->view('admin/includes/header'); ?>
 
     <body class="fix-header fix-sidebar">
         <!-- Preloader - style you can find in spinners.css -->
@@ -34,7 +34,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <?php echo $output; ?>
+                                    <?php echo 'incoming output'; ?>
                                 </div>
                             </div>
                         </div>
@@ -49,9 +49,6 @@
             <!-- End Page wrapper  -->
         </div>
         <!-- End Wrapper -->
-        <?php foreach($js_files as $file): ?>
-            <script src="<?php echo $file; ?>"></script>
-        <?php endforeach; ?>
         <?php $this->view('admin/includes/footer'); ?>
     </body>
 

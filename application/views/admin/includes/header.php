@@ -26,13 +26,6 @@
         <link href="<?php echo assets_css_url(); ?>lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
         <link href="<?php echo assets_css_url(); ?>lib/owl.carousel.min.css" rel="stylesheet" />
         <link href="<?php echo assets_css_url(); ?>lib/owl.theme.default.min.css" rel="stylesheet" />
-        <?php if (!empty($grocerycrud)): ?>
-        <!-- Jeg er Mihai -->
-        <link href="<?php echo assets_grocery_css_url(); ?>add-edit-form.css" rel="stylesheet" />
-        <link href="<?php echo assets_grocery_css_url(); ?>common.css" rel="stylesheet" />
-        <link href="<?php echo assets_grocery_css_url(); ?>general.css" rel="stylesheet" />
-        <link href="<?php echo assets_grocery_css_url(); ?>list.css" rel="stylesheet" />
-        <?php endif; ?>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
