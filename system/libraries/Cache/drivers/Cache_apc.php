@@ -149,7 +149,7 @@ class CI_Cache_apc extends CI_Driver {
 	 */
 	public function clean()
 	{
-		return apc_clear_cache('Main');
+		return apc_clear_cache('Frontmain');
 	}
 
 	// ------------------------------------------------------------------------
@@ -175,7 +175,7 @@ class CI_Cache_apc extends CI_Driver {
 	 */
 	public function get_metadata($id)
 	{
-		$cache_info = apc_cache_info('Main', FALSE);
+		$cache_info = apc_cache_info('Frontmain', FALSE);
 		if (empty($cache_info) OR empty($cache_info['cache_list']))
 		{
 			return FALSE;

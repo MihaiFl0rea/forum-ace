@@ -3,7 +3,7 @@
 if (!function_exists('send_email')) {
 
     function send_email($from, $to, $subject, $message) {
-        $CI =& get_instance(); // get CI instance in order to get email library
+        $CI =& get_instance();                                    // get CI instance in order to get email library
         $CI->load->library('PhpMailerLib');
         $mail = $CI->phpmailerlib->load();
 
@@ -25,29 +25,23 @@ if (!function_exists('send_email')) {
             $mail->SMTPSecure = 'ssl';                            // Enable ssl encryption, tls also accepted
 
             //Recipients
-            $mail->setFrom($from, 'Mailer');
-            $mail->addAddress($to, 'Joe User');                     // Add a recipient
-            //$mail->addAddress('ellen@example.com');               // Name is optional
-            //$mail->addReplyTo('info@example.com', 'Information');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-
-            //Attachments
-            //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+            $mail->setFrom($from, 'Forum A.C.E.');
+            $mail->addAddress($to, 'Forum A.C.E. User');          // Add a recipient
 
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Here is the subject';
+            $mail->Subject = $subject;
             $mail->Body    = $message;
-            //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            $mail->send();
-            $CI->session->set_flashdata('flash_message', 'Please check your e-mail in order to finish the register process.');
-            redirect(site_url() . 'main/login');
+            if ($mail->send()) {
+                return true;
+            } else {
+                log_message('error', 'Mail could not be sent. Error: ' . $mail->ErrorInfo);
+                return false;
+            }
         } catch (Exception $e) {
-            $this->session->set_flashdata('flash_message', 'Mail could not be sent. Error: ' . $mail->ErrorInfo);
-            redirect(site_url() . 'main/login');
+            log_message('error', 'Catch error. Mail could not be sent. Error: ' . $mail->ErrorInfo);
+            return false;
         }
     }
 

@@ -527,9 +527,7 @@ $config['proxy_ips'] = '';
 | Custom config variables (Users management)
 |--------------------------------------------------------------------------
 |
-| Roles
 | Status
 |
 */
-$config['roles'] = array('student', 'company', 'admin');
-$config['status'] = array('pending', 'approved');
+$config['status'] = array('pending', 'approved', 'completed');

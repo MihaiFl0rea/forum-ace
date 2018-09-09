@@ -4,26 +4,39 @@ class User_model extends CI_Model
 {
 
     public $status;
-    public $roles;
 
     function __construct()
     {
         // Call the Model constructor
         parent::__construct();
         $this->status = $this->config->item('status');
-        $this->roles = $this->config->item('roles');
+        date_default_timezone_set('Europe/Bucharest');
     }
 
-    public function insertUser($postData)
+    public function insertUser($postData, $user_table)
     {
         $string = array(
-            'username' => $postData['username'],
             'email' => $postData['email'],
-            'role' => $this->roles[1],
-            'status' => $this->status[0]
+            'status' => $this->status[0],
+            'register_date' => date('Y-m-d H:i:s')
         );
-        $q = $this->db->insert_string('backend_user', $string);
+
+        if ($user_table == 'student') {
+            $name = array(
+                'first_name' => $postData['firstname'],
+                'last_name' => $postData['lastname']
+            );
+        } else {
+            $name = array(
+                'name' => $postData['name']
+            );
+        }
+        // add name in final insert array
+        $string = array_merge($string, $name);
+        // run query
+        $q = $this->db->insert_string($user_table, $string);
         $this->db->query($q);
+        // return the new record's id
         return $this->db->insert_id();
     }
 
@@ -71,6 +84,9 @@ class User_model extends CI_Model
             }
 
             $user_info = $this->getUserInfo($row->user_id, $usersTable);
+            if (!$user_info) {
+                return false;
+            }
             return $user_info;
 
         } else {
@@ -85,7 +101,7 @@ class User_model extends CI_Model
             $row = $q->row();
             return $row;
         } else {
-            error_log('no user found getUserInfo(' . $id . ')');
+            log_message('error','no user found getUserInfo(' . $id . ')');
             return false;
         }
     }
@@ -94,15 +110,15 @@ class User_model extends CI_Model
     {
         $data = array(
             'password' => $post['password'],
-            'last_login' => date('Y-m-d h:i:s A'),
-            'status' => $this->status[1]
+            'last_login' => date('Y-m-d H:i:s'),
+            'status' => $this->status[2]
         );
         $this->db->where('id', $post['user_id']);
         $this->db->update($usersTable, $data);
         $success = $this->db->affected_rows();
 
         if (!$success) {
-            error_log('Unable to updateUserInfo(' . $post['user_id'] . ')');
+            log_message('error','Unable to updateUserInfo(' . $post['user_id'] . ')');
             return false;
         }
 
@@ -110,29 +126,57 @@ class User_model extends CI_Model
         return $user_info;
     }
 
-    public function checkLogin($post, $usersTable)
+    public function approveUser($id, $usersTable)
+    {
+        $data = array(
+            'status' => $this->status[1]
+        );
+        $this->db->where('id', $id);
+        $this->db->update($usersTable, $data);
+        $success = $this->db->affected_rows();
+
+        if (!$success) {
+            log_message('error','Unable to approveUser(' . $id . ', '. $usersTable .')');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkLogin($post, $usersTable, $frontLogin = false)
     {
         $this->load->library('password');
         $this->db->select('*');
         $this->db->where('email', $post['email']);
         $query = $this->db->get($usersTable);
         $userInfo = $query->row();
-
-        if (!$this->password->validate_password($post['password'], $userInfo->password)) {
-            error_log('Unsuccessful login attempt(' . $post['email'] . ')');
-            return false;
+        // if front login, login company as well
+        if (!$userInfo && $frontLogin) {
+            $this->db->select('*');
+            $this->db->where('email', $post['email']);
+            $query = $this->db->get('company');
+            $userInfo = $query->row();
         }
 
-        $this->updateLoginTime($userInfo->id, $usersTable);
+        if ($userInfo) {
+            if (!$this->password->validate_password($post['password'], $userInfo->password)) {
+                log_message('error','Unsuccessful login attempt(' . $post['email'] . ')');
+                return false;
+            }
 
-        unset($userInfo->password);
-        return $userInfo;
+            $this->updateLoginTime($userInfo->id, $usersTable);
+
+            unset($userInfo->password);
+            return $userInfo;
+        }
+
+        return false;
     }
 
     public function updateLoginTime($id, $usersTable)
     {
         $this->db->where('id', $id);
-        $this->db->update($usersTable, array('last_login' => date('Y-m-d h:i:s A')));
+        $this->db->update($usersTable, array('last_login' => date('Y-m-d H:i:s')));
         return;
     }
 
@@ -143,7 +187,7 @@ class User_model extends CI_Model
             $row = $query->row();
             return $row;
         } else {
-            error_log('no user found getUserInfo(' . $email . ')');
+            log_message('error','no user found getUserInfo(' . $email . ')');
             return false;
         }
     }
@@ -155,10 +199,38 @@ class User_model extends CI_Model
         $success = $this->db->affected_rows();
 
         if (!$success) {
-            error_log('Unable to updatePassword(' . $post['user_id'] . ')');
+            log_message('error','Unable to updatePassword(' . $post['user_id'] . ')');
             return false;
         }
         return true;
     }
+
+    /*
+     * Admin related methods ONLY!
+     */
+
+    /**
+     * If user is company, check if has updated his profile and specified his company
+     * @param $userType
+     * @param $firmId
+     * @return bool
+     */
+    public function hasFirmAssociated($userType, $companyId)
+    {
+        if ($userType == 'company') {
+            $this->db->get_where('company', array('id_company' => $companyId), 1);
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /*
+     * Front related methods ONLY!
+     */
 
 }

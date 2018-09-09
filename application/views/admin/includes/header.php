@@ -14,18 +14,23 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo assets_img_url(); ?>img/favicon.png">
-        <title>Ela - Bootstrap Admin Dashboard Template</title>
+        <link rel="icon" type="image/png" href="<?php echo assets_img_url(); ?>favicon.png">
+        <title>Admin | Forum A.C.E.</title>
         <!-- Bootstrap Core CSS -->
+        <link href="<?php echo assets_css_url(); ?>lib/dropzone/dropzone.css" rel="stylesheet" />
         <link href="<?php echo assets_css_url(); ?>lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo assets_css_url(); ?>datatables.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="<?php echo assets_css_url(); ?>helper.css" rel="stylesheet">
         <link href="<?php echo assets_css_url(); ?>style.css" rel="stylesheet">
+        <link href="<?php echo assets_css_url(); ?>my-custom-styles.css" rel="stylesheet">
         <!-- Other CSS libraries -->
         <link href="<?php echo assets_css_url(); ?>lib/calendar2/semantic.ui.min.css" rel="stylesheet">
-        <link href="<?php echo assets_css_url(); ?>lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
-        <link href="<?php echo assets_css_url(); ?>lib/owl.carousel.min.css" rel="stylesheet" />
-        <link href="<?php echo assets_css_url(); ?>lib/owl.theme.default.min.css" rel="stylesheet" />
+        <!-- Select2 -->
+        <link href="<?php echo assets_css_url(); ?>lib/select2/select2.min.css" rel="stylesheet">
+<!--        <link href="--><?php //echo assets_css_url(); ?><!--lib/calendar2/pignose.calendar.min.css" rel="stylesheet">-->
+<!--        <link href="--><?php //echo assets_css_url(); ?><!--lib/owl.carousel.min.css" rel="stylesheet" />-->
+<!--        <link href="--><?php //echo assets_css_url(); ?><!--lib/owl.theme.default.min.css" rel="stylesheet" />-->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>

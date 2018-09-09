@@ -11,46 +11,39 @@
         </div>
         <!-- Main wrapper  -->
         <div id="main-wrapper">
-
+            <?php $this->view('admin/includes/warnings'); ?>
             <div class="unix-login">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-lg-4">
                             <div class="login-content card">
                                 <div class="login-form">
-                                    <h4>Register</h4>
+                                    <h4>Creare cont</h4>
                                     <?php $formAttr = array('class' => 'form-signin');
-                                        echo form_open('/main/register', $formAttr); ?>
+                                        echo form_open(site_url().'admin/register', $formAttr); ?>
                                         <div class="form-group">
-                                            <label>User Name</label>
+                                            <label>Companie</label>
                                             <?php echo form_input(array(
-                                                    'id'=> 'username2',
-                                                    'placeholder'=>'Username',
+                                                    'id'=> 'name',
+                                                    'name'=> 'name',
+                                                    'placeholder'=>'Company name',
                                                     'class'=>'form-control',
-                                                    'value' => set_value('username'))); ?>
-                                            <?php echo form_error('username');?>
+                                                    'value' => set_value('company'))); ?>
+                                            <?php echo form_error('company');?>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email address</label>
+                                            <label>Email</label>
                                             <?php echo form_input(array(
                                                 'id'=> 'email',
+                                                'name'=>'email',
                                                 'placeholder'=>'Email',
                                                 'class'=>'form-control',
                                                 'value' => set_value('email'))); ?>
                                             <?php echo form_error('email');?>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <?php echo form_password(array(
-                                                'id'=> 'password',
-                                                'placeholder'=>'Password',
-                                                'class'=>'form-control',
-                                                'value' => set_value('password'))); ?>
-                                            <?php echo form_error('password');?>
-                                        </div>
-                                    <?php echo form_submit(array('value'=>'Register', 'class'=>'btn btn-success btn-flat m-b-30 m-t-30')); ?>
+                                    <?php echo form_submit(array('value'=>'Inregistrare', 'class'=>'btn btn-success btn-flat m-b-30 m-t-30')); ?>
                                         <div class="register-link m-t-15 text-center">
-                                            <p>Already have account ? <a href="<?php echo site_url(); ?>admin/login"> Sign in</a></p>
+                                            <p>Aveti deja cont? <a href="<?php echo site_url(); ?>admin/login"> Logare</a></p>
                                         </div>
                                     <?php echo form_close(); ?>
                                 </div>
