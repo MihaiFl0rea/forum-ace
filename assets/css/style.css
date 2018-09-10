@@ -1140,7 +1140,7 @@ h6.h1 {
 }
 .header ul.dropdown-user {
   padding: 0;
-  min-width: 175px;
+  /*min-width: 175px;*/
 }
 .header ul.dropdown-user li {
   list-style: none;
@@ -4855,7 +4855,7 @@ footer p {
   margin-bottom: 20px;
 }
 .form-control {
-  height: 42px;
+  /*height: 42px;*/
   border-radius: 0;
   box-shadow: none;
   border-color: #e7e7e7;

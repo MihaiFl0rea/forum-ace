@@ -354,7 +354,7 @@ class Article_model extends CI_Model
     }
 
     private function do_upload($input_name, $company_name){
-        $dir_absolute_path = assets_files_absolute_path() . $company_name . DIRECTORY_SEPARATOR;
+        $dir_absolute_path = assets_files_absolute_path() . strtolower(str_replace(' ', '', $company_name)) . DIRECTORY_SEPARATOR;
         if (!file_exists($dir_absolute_path) && !is_dir($dir_absolute_path)) {
             mkdir($dir_absolute_path);
         }

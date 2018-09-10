@@ -307,13 +307,8 @@ class Admin_main extends CI_Controller
         if (empty($userSession['id'])) {
             redirect(site_url() . 'admin/login');
         }
-        $this->load->model('Company_model', 'company_model', TRUE);
-//        $company = $this->company_model->getCompanyById($userSession['id_company']);
-//        if (!$company) {
-//            $company['no_company'] = true;
-//        }
-//        $userSession = array_merge($userSession,$company);
-        $this->load->view('admin/page_profile', $userSession);
+
+        $this->load->view('admin/page_profile', array('user' => $userSession));
     }
 
 }

@@ -36,7 +36,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4>Ultimele companii inregistrate</h4>
+                                    <h4 class="txt-alg-center">Ultimele companii inregistrate</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -84,7 +84,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4>Ultimii studenti inregistrati</h4>
+                                    <h4 class="txt-alg-center">Ultimii studenti inregistrati</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -127,6 +127,174 @@
                     <!-- End PAge Content -->
                 </div>
                 <?php endif; ?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-title">
+                                    <h2 class="txt-alg-center">Statistici Forum A.C.E.</h2>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Students statistics -->
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-graduation-cap f-s-40 color-primary"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>73</h2>
+                                                        <p class="m-b-0">Studenti</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-university f-s-40 color-primary"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>51</h2>
+                                                        <p class="m-b-0">Studenti ACE</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-university f-s-40 color-primary"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>22</h2>
+                                                        <p class="m-b-0">Studenti Mate-Info</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-comments-o f-s-40 color-primary"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>166</h2>
+                                                        <p class="m-b-0">Comentarii studenti</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Students statistics -->
+                                    <!-- Companies statistics -->
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-users f-s-40 color-danger"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>12</h2>
+                                                        <p class="m-b-0">Companii</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>6</h2>
+                                                        <p class="m-b-0">Companii (Craiova)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>3</h2>
+                                                        <p class="m-b-0">Companii (Bucuresti)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>3</h2>
+                                                        <p class="m-b-0">Companii (Alte orase)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Companies statistics -->
+                                    <!-- Articles statistics -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-sticky-note-o f-s-40 color-success"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>59</h2>
+                                                        <p class="m-b-0">Articole</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-share f-s-40 color-success"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>31</h2>
+                                                        <p class="m-b-0">Anunturi companii</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card p-30">
+                                                <div class="media">
+                                                    <div class="media-left meida media-middle">
+                                                        <span><i class="fa fa-reply f-s-40 color-success"></i></span>
+                                                    </div>
+                                                    <div class="media-body media-text-right">
+                                                        <h2>28</h2>
+                                                        <p class="m-b-0">Postari IT</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Articles statistics -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- footer -->
                 <footer class="footer"> © Facultatea de Automatica, Calculatoare si Electronica, <?php echo date('Y'); ?></footer>
                 <!-- End footer -->

@@ -4,7 +4,10 @@
  * User: Mihai
  * Date: 6/13/2018
  * Time: 6:09 AM
- */ ?>
+ */
+$avatar  = !empty($this->session->userdata['logo']) ?
+    assets_uploads_url() . $this->session->userdata['logo'] : assets_img_url() . 'favicon.png';
+?>
 
 <!-- header header  -->
 <div class="header">
@@ -33,12 +36,14 @@
                 </li>
                 <!-- Profile -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo assets_img_url(); ?>users/5.jpg" alt="user" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="<?php echo $avatar; ?>" alt="user" class="profile-pic" />
+                    </a>
                     <div class="dropdown-menu dropdown-menu-right animated slideInRight">
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="<?php echo assets_img_url(); ?>users/5.jpg" alt="user"></div>
+                                    <div class="u-img"><img src="<?php echo $avatar; ?>" alt="user"></div>
                                     <div>
                                         <h4><?php
                                             $userSession = $this->session->userdata;
@@ -48,9 +53,7 @@
                                     </div>
                                 </div>
                             </li>
-<!--                            <li role="separator" class="divider"></li>-->
-                            <li><a href="<?php echo base_url() . 'admin/my-profile' ?>"><i class="ti-user"></i> My Profile</a></li>
-<!--                            <li role="separator" class="divider"></li>-->
+                            <li><a href="<?php echo base_url() . 'admin/profilul-meu' ?>"><i class="ti-user"></i> Profilul meu</a></li>
                             <li><a href="<?php echo base_url(); ?>admin/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
