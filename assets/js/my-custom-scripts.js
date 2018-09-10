@@ -163,7 +163,7 @@ $(document).ready(function(){
             form.toggle('slow');
             response = JSON.parse(response);
             // add the new comment as the first one in the list
-            var commentsContainer = $('article.comments ul.media-list');
+            var commentsContainer = $('article.comments ul.media-list').first();
             commentsContainer.prepend('<li class="media">' + $('#typical_comment').html() + '</li>');
 
             // build the new comment's container

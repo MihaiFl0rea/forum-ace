@@ -18,6 +18,7 @@ class Front_article extends CI_Controller
         }
 
         $this->load->model('Article_model', 'article_model', TRUE);
+        $this->load->model('Company_model', 'company_model', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     }
@@ -31,8 +32,18 @@ class Front_article extends CI_Controller
         // and remove it from the older ones
         unset($articles[0]);
 
+        $recommendations = $this->company_model->get_recommended_articles();
+        $categories = $this->company_model->get_categories_articles();
+        $tags = $this->company_model->get_tags_articles();
+
         /*front page*/
-        $this->load->view('index', array('latest_article' => $latest_article, 'articles' => $articles));
+        $this->load->view('index', array(
+            'latest_article' => $latest_article,
+            'articles' => $articles,
+            'recommendations' => $recommendations,
+            'categories' => $categories,
+            'tags' => $tags)
+        );
     }
 
     public function get_article($id = false)

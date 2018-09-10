@@ -376,7 +376,7 @@
                         <div class="col-md-3">
                             <!-- sidebar -->
                             <div class="sidebar">
-                                <?php $this->view('includes/widget_recommended'); ?>
+<!--                                --><?php //$this->view('includes/widget_recommended'); ?>
                                 <?php $this->view('includes/widget_categories'); ?>
                                 <?php $this->view('includes/widget_tags'); ?>
                                 <?php $this->view('includes/widget_search'); ?>

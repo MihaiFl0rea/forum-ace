@@ -157,7 +157,7 @@ class Article_model extends CI_Model
             'name_company' => $company['name'],
             'logo_company' => $company['logo'],
             'city_company' => $company['city'],
-            'comments' => $comments
+            'comments' => array_reverse($comments, true)
         ), $categories_and_tags);
     }
 

@@ -89,3 +89,7 @@
 .add-comment-header {
     cursor: pointer;
 }
+
+.thumbnail-img {
+    max-width: 80px;
+}

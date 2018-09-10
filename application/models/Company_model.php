@@ -9,6 +9,13 @@
 class Company_model extends CI_Model
 {
     const COMPANIES_TABLE = 'company';
+    const ARTICLE_TABLE = 'article';
+    const ARTICLE_COMMENT_TABLE = 'article_comment';
+    const ARTICLE_COMMENT_THUMB_TABLE = 'article_comment_thumb';
+    const ARTICLE_TAG_TABLE = 'article_tag';
+    const ARTICLE_CATEGORY_TABLE = 'article_category';
+    const CATEGORY_TABLE = 'category';
+    const TAG_TABLE = 'tag';
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETED = 'completed';
 
@@ -202,5 +209,165 @@ class Company_model extends CI_Model
             log_message('error','no company found get_company_by_id(' . $id_company . ')');
             return false;
         }
+    }
+
+    public function get_recommended_articles()
+    {
+        $observed_articles = $tracked_categories = $tracked_tags = $articles = array();
+        $type_user = !empty($this->session->userdata['front_faculty']) ? '0' : '1';
+
+        // get articles on which the current logged in user has commented
+        $this->db->select('*');
+        $this->db->where(array('id_user' => $this->session->userdata['front_id'], 'type_user' => $type_user));
+        $query = $this->db->get($this::ARTICLE_COMMENT_TABLE);
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                array_push($observed_articles, $result->id_article);
+            }
+        }
+
+        // get articles on which the current user has reviewed the addressed comments
+        $this->db->select('*')
+                ->from($this::ARTICLE_COMMENT_THUMB_TABLE)
+                ->join($this::ARTICLE_COMMENT_TABLE, $this::ARTICLE_COMMENT_THUMB_TABLE . ".id_comment = " . $this::ARTICLE_COMMENT_TABLE . ".id_article_comment")
+                ->where(array(
+                    $this::ARTICLE_COMMENT_THUMB_TABLE . ".id_user" => $this->session->userdata['front_id'],
+                    $this::ARTICLE_COMMENT_THUMB_TABLE . ".type_user" => $type_user)
+                );
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                array_push($observed_articles, $result->id_article);
+            }
+        }
+
+        if (!empty(array_unique($observed_articles))) {
+            // get all categories of the above observed articles
+            $this->db->select('*');
+            $this->db->where_in('id_article', array(implode(',', array_unique($observed_articles))));
+            $query = $this->db->get($this::ARTICLE_CATEGORY_TABLE);
+            $results = $query->result();
+
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    array_push($tracked_categories, $result->id_category);
+                }
+            }
+
+            // get all tags of the above observed articles
+            $this->db->select('*');
+            $this->db->where_in('id_article', array(implode(',', array_unique($observed_articles))));
+            $query = $this->db->get($this::ARTICLE_TAG_TABLE);
+            $results = $query->result();
+
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    array_push($tracked_tags, $result->id_tag);
+                }
+            }
+        }
+
+        if (!empty(array_unique($tracked_categories))) {
+            // get all articles based on the above tracked categories and tags
+            $this->db->select('*')
+                ->from($this::ARTICLE_CATEGORY_TABLE)
+                ->join($this::ARTICLE_TABLE, $this::ARTICLE_CATEGORY_TABLE . ".id_article = ".$this::ARTICLE_TABLE.".id_article")
+                ->where_in($this::ARTICLE_CATEGORY_TABLE . ".id_category", array(implode(',', array_unique($tracked_categories))));
+            $this->db->order_by($this::ARTICLE_TABLE . ".creation_date", 'desc');
+            $query = $this->db->get();
+            $results = $query->result();
+
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    $articles[$result->id_article] = array(
+                        'id' => $result->id_article,
+                        'creation_date' => date('d.m.Y', strtotime($result->creation_date)),
+                        'poster' => $result->poster,
+                        'title' => $result->title
+                    );
+                }
+            }
+        }
+
+        if (!empty(array_unique($tracked_tags))) {
+            // get all articles based on the above tracked categories and tags
+            $this->db->select('*')
+                ->from($this::ARTICLE_TAG_TABLE)
+                ->join($this::ARTICLE_TABLE, $this::ARTICLE_TAG_TABLE . ".id_article = ".$this::ARTICLE_TABLE.".id_article")
+                ->where_in($this::ARTICLE_TAG_TABLE . ".id_tag", array(implode(',', array_unique($tracked_tags))));
+            $this->db->order_by($this::ARTICLE_TABLE . ".creation_date", 'desc');
+            $query = $this->db->get();
+            $results = $query->result();
+
+            if (!empty($results)) {
+                foreach ($results as $result) {
+                    $articles[$result->id_article] = array(
+                        'id' => $result->id_article,
+                        'creation_date' => date('d.m.Y', strtotime($result->creation_date)),
+                        'poster' => $result->poster,
+                        'title' => $result->title,
+                        'company_name' => $this->get_company_by_id($result->id_company)['name']
+                    );
+                }
+            }
+        }
+
+        return $articles;
+    }
+
+    /**
+     * Get all categories of the current added articles
+     */
+    public function get_categories_articles()
+    {
+        $this->db->select('*')
+            ->from($this::ARTICLE_CATEGORY_TABLE)
+            ->join($this::CATEGORY_TABLE, $this::ARTICLE_CATEGORY_TABLE . ".id_category = " . $this::CATEGORY_TABLE . ".id_category");
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                if (!empty($data[$result->id_category])) {
+                    $number_of_articles = $data[$result->id_category]['articles_number'] + 1;
+                    $data[$result->id_category]['articles_number'] = $number_of_articles;
+                } else {
+                    $data[$result->id_category] = array(
+                        'id_category' => $result->id_category,
+                        'name' => $result->name,
+                        'articles_number' => 1
+                    );
+                }
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    /**
+     * Get all tags of the current added articles
+     */
+    public function get_tags_articles()
+    {
+        $this->db->select('*')
+            ->from($this::ARTICLE_TAG_TABLE)
+            ->join($this::TAG_TABLE, $this::ARTICLE_TAG_TABLE . ".id_tag = " . $this::TAG_TABLE . ".id_tag");
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $data[$result->id_tag] = array(
+                    'id_tag' => $result->id_tag,
+                    'name' => $result->name
+                );
+            }
+            return $data;
+        }
+        return array();
     }
 }
