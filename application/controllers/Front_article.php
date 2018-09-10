@@ -85,6 +85,16 @@ class Front_article extends CI_Controller
         $cleanPost = $this->security->xss_clean($this->input->post());
         $this->article_model->delete_review_comment($cleanPost['id_review']);
     }
+
+    public function get_articles_by_company($id_company)
+    {
+        if ($id_company) {
+            $articles = $this->company_model->get_articles_by_company($id_company);
+            $this->load->view('articles', array('articles' => $articles));
+        } else {
+            redirect(base_url() . 'acasa');
+        }
+    }
 }
 
 ?>

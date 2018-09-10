@@ -72,6 +72,10 @@
     margin-right: 10px;
 }
 
+.txt-alg-center {
+    text-align: center;
+}
+
 .comm-color {
     color: #69B417;
     text-decoration: none;
@@ -92,4 +96,8 @@
 
 .thumbnail-img {
     max-width: 80px;
+}
+
+.fixed-height-210 {
+    height: 210px;
 }

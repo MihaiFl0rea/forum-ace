@@ -24,16 +24,16 @@ if (!empty($flash_data['flash_message'])) {
             <span class="sr-only">Toggle Navigation</span>
             <i class="fa fa-bars"></i>
         </button>
-        <a href="<?php echo base_url() .'home'; ?>" class="navbar-brand no-padding">
+        <a href="<?php echo base_url() .'acasa'; ?>" class="navbar-brand no-padding">
             <img src="<?php echo assets_img_url(); ?>logoACE_text.png" alt="Facultatea de Automatica, Calculatoare si Electronica">
         </a>
         <div id="main-nav-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav main-navbar-nav">
-                <li><a href="<?php echo base_url() . 'home'; ?>">Noutati</a></li>
-                <li><a href="<?php echo base_url() . 'home'; ?>">Trending!</a></li>
-                <li><a href="<?php echo base_url() . 'home'; ?>">Companii</a></li>
-                <li><a href="<?php echo base_url() . 'home'; ?>">Studenti activi!</a></li>
-                <li><a href="<?php echo base_url() . 'home'; ?>">Profilul meu</a></li>
+                <li><a href="<?php echo base_url() . 'acasa'; ?>">Noutati</a></li>
+                <li><a href="<?php echo base_url() . 'trending'; ?>">Trending!</a></li>
+                <li><a href="<?php echo base_url() . 'companii'; ?>">Companii</a></li>
+                <li><a href="<?php echo base_url() . 'studenti-activi'; ?>">Studenti activi!</a></li>
+                <li><a href="<?php echo base_url() . 'profil'; ?>">Profilul meu</a></li>
                 <li><a href="<?php echo base_url() . 'logout'; ?>"><span><i class="fa fa-sign-out"></i> Log out</span></a></li>
             </ul>
         </div>

@@ -203,7 +203,8 @@ class Company_model extends CI_Model
                 'logo' => $row->logo,
                 'description' => $row->description,
                 'email' => $row->email,
-                'address' => $row->address
+                'address' => $row->address,
+                'status' => $row->status
             );
         } else {
             log_message('error','no company found get_company_by_id(' . $id_company . ')');
@@ -369,5 +370,71 @@ class Company_model extends CI_Model
             return $data;
         }
         return array();
+    }
+
+    public function get_companies()
+    {
+        $this->db->select('*');
+        $query = $this->db->get($this::ARTICLE_TABLE);
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $company = $this->get_company_by_id($result->id_company);
+                if ($company['status'] == $this::STATUS_COMPLETED) {
+                    $data[$result->id_company] = array(
+                        'id_company' => $result->id_company,
+                        'name' => $company['name'],
+                        'city' => $company['city'],
+                        'logo' => $company['logo'],
+                        'description' => $company['description'],
+                        'address' => $company['address']
+                    );
+                }
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    public function get_articles_by_company($id_company)
+    {
+        $this->db->select('*');
+        $this->db->where(array('id_company' => $id_company));
+        $this->db->order_by('creation_date', 'desc');
+        $query = $this->db->get($this::ARTICLE_TABLE);
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $company = $this->get_company_by_id($id_company);
+                $data[$result->id_article] = array(
+                    'title' => $result->title,
+                    'poster' => $result->poster,
+                    'creation_date' => date('d.m.Y', strtotime($result->creation_date)),
+                    'creation_date_en' => date('M d, Y', strtotime($result->creation_date)),
+                    '#comments' => $this->get_number_of_comments($result->id_article),
+                    'id_company' => $result->id_company,
+                    'name' => $company['name'],
+                    'city' => $company['city'],
+                    'logo' => $company['logo'],
+                    'description' => $company['description'],
+                    'address' => $company['address']
+                );
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    public function get_number_of_comments($id_article)
+    {
+        $this->db->select('*');
+        $this->db->where(array('id_article' => $id_article));
+        $query = $this->db->get($this::ARTICLE_COMMENT_TABLE);
+        $results = $query->result();
+
+        // return number of comments
+        return count($results);
     }
 }

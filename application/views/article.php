@@ -20,7 +20,7 @@
             <div class="page-header breadcrumbs-only">
                 <div class="container">
                     <ol class="breadcrumb link-accent">
-                        <li><a href="<?php echo base_url() . 'home'; ?>">Articole</a></li>
+                        <li><a href="<?php echo base_url() . 'acasa'; ?>">Articole</a></li>
                         <li class="active"><?php echo $article['title']; ?></li>
                     </ol>
                 </div>

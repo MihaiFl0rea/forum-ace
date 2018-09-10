@@ -5080,7 +5080,7 @@ div[class*="col-"] .icon-info-center {
 }
 .team-member .member-info {
   padding: 25px 20px;
-  border-top: 2px solid #69B417;
+  /*border-top: 2px solid #69B417;*/
 }
 .team-member .name {
   display: inline;
@@ -6600,7 +6600,7 @@ footer .right {
   background-color: #fff;
 }
 .footer-newsletter .container {
-  border-top: 1px solid #bfbfbf;
+  /*border-top: 1px solid #bfbfbf;*/
   padding-top: 60px;
 }
 .footer-newsletter .footer-top {

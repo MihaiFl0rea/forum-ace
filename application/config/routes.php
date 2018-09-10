@@ -101,7 +101,7 @@ $route['admin/stergere-tag'] = 'Admin_article/delete_tag';
 $route['admin/cautare/(:any)'] = 'Admin_search/read/$1';
 
 /* Front Routes */
-$route['home'] = 'Front_article/index';
+$route['acasa'] = 'Front_article/index';
 $route['login'] = 'Front_main/login';
 $route['register'] = 'Front_main/register';
 $route['forgot'] = 'Front_main/forgot';
@@ -112,7 +112,7 @@ $route['my-profile'] = 'Front_main/get_user_profile';
 $route['articol/(:any)'] = 'Front_article/get_article/$1';
 $route['trending'] = 'Front_article/get_trending_articles';
 $route['companii'] = 'Front_company/get_companies';
-$route['companii/(:any)'] = 'Front_article/get_articles_by_company/$1';
+$route['articole-companie/(:any)'] = 'Front_article/get_articles_by_company/$1';
 $route['studenti-activi'] = 'Front_student/get_active_students';
 $route['adaugare-comentariu'] = 'Front_article/add_comment';
 $route['editare-comentariu'] = 'Front_article/edit_comment';

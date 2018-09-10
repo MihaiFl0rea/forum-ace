@@ -111,7 +111,7 @@ class Front_main extends CI_Controller
             foreach ($userInfo as $key => $val) {
                 $this->session->set_userdata('front_' . $key, $val);
             }
-            redirect(site_url() . 'home');
+            redirect(site_url() . 'acasa');
         }
     }
 
@@ -120,7 +120,7 @@ class Front_main extends CI_Controller
         // if somehow the user is logged but he's accessing the login page, redirect him to home page
         if (!empty($this->session->userdata['front_id'])) {
             /*go to home page*/
-            redirect(site_url() . 'home');
+            redirect(site_url() . 'acasa');
         }
 
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -141,7 +141,7 @@ class Front_main extends CI_Controller
             foreach ($userInfo as $key => $val) {
                 $this->session->set_userdata('front_' . $key, $val);
             }
-            redirect(site_url() . 'home');
+            redirect(site_url() . 'acasa');
         }
     }
 
