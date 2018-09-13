@@ -38,7 +38,8 @@ class Student_model extends CI_Model
                     'email' => $result->email,
                     'avatar' => $result->avatar,
                     'register_date' => $result->register_date,
-                    'status' => $result->status
+                    'status' => $result->status,
+                    '#comments' => $this->get_comments_by_student($result->id)
                 );
             }
         } else {
@@ -262,5 +263,11 @@ class Student_model extends CI_Model
         });
 
         return array_reverse($data, true);
+    }
+
+    public function get_comments_by_student($id)
+    {
+        $query = $this->db->get_where('article_comment', array('type_user' => 0, 'id_user' => $id));
+        return count($query->result());
     }
 }

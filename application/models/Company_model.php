@@ -43,7 +43,8 @@ class Company_model extends CI_Model
                     'email' => $result->email,
                     'address' => $result->address,
                     'register_date' => $result->register_date,
-                    'status' => $result->status
+                    'status' => $result->status,
+                    '#articles' => count($this->get_articles_by_company($result->id))
                 );
             }
         } else {

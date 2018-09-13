@@ -26,7 +26,13 @@ class Admin_main extends CI_Controller
         $this->load->model('Company_model', 'company_model', TRUE);
         $this->load->model('Student_model', 'student_model', TRUE);
 
-        $this->load->view('admin/page_home', array('pending_companies' => $this->company_model->get_pending_companies(), 'pending_students' => $this->student_model->get_pending_students()));
+        $this->load->view('admin/page_home',
+            array(
+                'pending_companies' => $this->company_model->get_pending_companies(),
+                'pending_students' => $this->student_model->get_pending_students(),
+                'statistics' => $this->user_model->get_statistics()
+            )
+        );
     }
 
     public function register()

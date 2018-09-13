@@ -229,8 +229,64 @@ class User_model extends CI_Model
         return true;
     }
 
-    /*
-     * Front related methods ONLY!
-     */
+    public function get_statistics()
+    {
+        // students
+        $query = $this->db->get_where('student', array('status' => 'completed'));
+        $students = count($query->result());
+
+        // students ACE
+        $query = $this->db->get_where('student', array('faculty' => 'ace', 'status' => 'completed'));
+        $students_ace = count($query->result());
+
+        // students Mate-Info
+        $query = $this->db->get_where('student', array('faculty' => 'mate-info', 'status' => 'completed'));
+        $students_mate = count($query->result());
+
+        // comments of students
+        $query = $this->db->get_where('article_comment', array('type_user' => 0));
+        $students_comments = count($query->result());
+
+        // companies
+        $query = $this->db->get_where('company', array('status' => 'completed'));
+        $companies = count($query->result());
+
+        // companies from Craiova
+        $query = $this->db->get_where('company', array('status' => 'completed', 'city' => 'Craiova'));
+        $companies_cr = count($query->result());
+
+        // companies from Bucuresti
+        $query = $this->db->get_where('company', array('status' => 'completed', 'city' => 'Bucuresti'));
+        $companies_buc = count($query->result());
+
+        // the other remaining companies
+        $companies_other = $companies - ($companies_cr + $companies_buc);
+
+        // students
+        $query = $this->db->get('article');
+        $articles = count($query->result());
+
+        // articles_companies
+        $query = $this->db->get_where('article', array('type' => 0));
+        $articles_companies = count($query->result());
+
+        // articles_post
+        $query = $this->db->get_where('article', array('type' => 1));
+        $articles_posts = count($query->result());
+
+        return array(
+            '#students' => $students,
+            'students_ace' => $students_ace,
+            'students_mate' => $students_mate,
+            'comments_students' => $students_comments,
+            '#companies' => $companies,
+            'companies_cr' => $companies_cr,
+            'companies_buc' => $companies_buc,
+            'companies_other' => $companies_other,
+            '#articles' => $articles,
+            'articles_companies' => $articles_companies,
+            'articles_posts' => $articles_posts
+        );
+    }
 
 }

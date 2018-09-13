@@ -88,7 +88,7 @@ $is_admin = (!empty($current_user['role']) && $current_user['role'] == 'admin');
                                                                 <?php endif; ?>
                                                                 <td><?php echo $student['email']; ?></td>
                                                                 <td><?php echo date('d.m.Y', strtotime($student['register_date'])); ?></td>
-                                                                <td>NaN (for now)</td>
+                                                                <td><?php echo $student['#comments']; ?></td>
                                                                 <?php if ($is_admin): ?>
                                                                     <td>
                                                                         <button type="button"

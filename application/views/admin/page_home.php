@@ -144,7 +144,7 @@
                                                         <span><i class="fa fa-graduation-cap f-s-40 color-primary"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>73</h2>
+                                                        <h2><?php echo $statistics['#students']; ?></h2>
                                                         <p class="m-b-0">Studenti</p>
                                                     </div>
                                                 </div>
@@ -157,7 +157,7 @@
                                                         <span><i class="fa fa-university f-s-40 color-primary"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>51</h2>
+                                                        <h2><?php echo $statistics['students_ace']; ?></h2>
                                                         <p class="m-b-0">Studenti ACE</p>
                                                     </div>
                                                 </div>
@@ -170,7 +170,7 @@
                                                         <span><i class="fa fa-university f-s-40 color-primary"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>22</h2>
+                                                        <h2><?php echo $statistics['students_mate']; ?></h2>
                                                         <p class="m-b-0">Studenti Mate-Info</p>
                                                     </div>
                                                 </div>
@@ -183,7 +183,7 @@
                                                         <span><i class="fa fa-comments-o f-s-40 color-primary"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>166</h2>
+                                                        <h2><?php echo $statistics['comments_students']; ?></h2>
                                                         <p class="m-b-0">Comentarii studenti</p>
                                                     </div>
                                                 </div>
@@ -200,7 +200,7 @@
                                                         <span><i class="fa fa-users f-s-40 color-danger"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>12</h2>
+                                                        <h2><?php echo $statistics['#companies']; ?></h2>
                                                         <p class="m-b-0">Companii</p>
                                                     </div>
                                                 </div>
@@ -213,7 +213,7 @@
                                                         <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>6</h2>
+                                                        <h2><?php echo $statistics['companies_cr']; ?></h2>
                                                         <p class="m-b-0">Companii (Craiova)</p>
                                                     </div>
                                                 </div>
@@ -226,7 +226,7 @@
                                                         <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>3</h2>
+                                                        <h2><?php echo $statistics['companies_buc']; ?></h2>
                                                         <p class="m-b-0">Companii (Bucuresti)</p>
                                                     </div>
                                                 </div>
@@ -239,7 +239,7 @@
                                                         <span><i class="fa fa-user-secret f-s-40 color-danger"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>3</h2>
+                                                        <h2><?php echo $statistics['companies_other']; ?></h2>
                                                         <p class="m-b-0">Companii (Alte orase)</p>
                                                     </div>
                                                 </div>
@@ -256,7 +256,7 @@
                                                         <span><i class="fa fa-sticky-note-o f-s-40 color-success"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>59</h2>
+                                                        <h2><?php echo $statistics['#articles']; ?></h2>
                                                         <p class="m-b-0">Articole</p>
                                                     </div>
                                                 </div>
@@ -269,7 +269,7 @@
                                                         <span><i class="fa fa-share f-s-40 color-success"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>31</h2>
+                                                        <h2><?php echo $statistics['articles_companies']; ?></h2>
                                                         <p class="m-b-0">Anunturi companii</p>
                                                     </div>
                                                 </div>
@@ -282,7 +282,7 @@
                                                         <span><i class="fa fa-reply f-s-40 color-success"></i></span>
                                                     </div>
                                                     <div class="media-body media-text-right">
-                                                        <h2>28</h2>
+                                                        <h2><?php echo $statistics['articles_posts']; ?></h2>
                                                         <p class="m-b-0">Postari IT</p>
                                                     </div>
                                                 </div>
