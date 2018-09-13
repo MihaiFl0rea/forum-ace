@@ -125,10 +125,10 @@ $is_admin = (!empty($current_user['role']) && $current_user['role'] == 'admin');
                     <!-- Bread crumb -->
                     <div class="row page-titles">
                         <div class="col-md-5 align-self-center">
-                            <h3 class="text-primary">Companii</h3> </div>
+                            <h3 class="text-primary">Studenti</h3> </div>
                         <div class="col-md-7 align-self-center">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?php echo base_url() . 'admin/studenti'; ?>">Companii</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo base_url() . 'admin/studenti'; ?>">Studenti</a></li>
                                 <li class="breadcrumb-item active">Adaugare student</li>
                             </ol>
                         </div>

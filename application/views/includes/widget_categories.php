@@ -14,7 +14,7 @@
     <ul class="list-unstyled category-list">
         <?php foreach ($categories as $category): ?>
         <li>
-            <a href="<?php echo base_url() . 'category/' . $category['id_category']; ?>"><?php echo $category['name'] . ($category['articles_number'] > 1 ? ' (' . $category['articles_number'] . ')' : '');  ?></a>
+            <a href="<?php echo base_url() . 'categorie/' . $category['id_category']; ?>"><?php echo $category['name'] . ($category['articles_number'] > 1 ? ' (' . $category['articles_number'] . ')' : '');  ?></a>
         </li>
         <?php endforeach; ?>
     </ul>

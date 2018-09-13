@@ -9,6 +9,9 @@
 class Student_model extends CI_Model
 {
     const STUDENTS_TABLE = 'student';
+    const ARTICLE_COMMENT_TABLE = 'article_comment';
+    const ARTICLE_COMMENT_THUMB = 'article_comment_thumb';
+    const STUDENT_REPUTATION_TABLE = 'student_reputation';
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETED = 'completed';
 
@@ -196,5 +199,68 @@ class Student_model extends CI_Model
             log_message('error','no student found get_student_by_id(' . $id_student . ')');
             return false;
         }
+    }
+
+    public function get_top_students()
+    {
+        $data = array();
+
+        $this->db->select('*')
+                ->from($this::ARTICLE_COMMENT_TABLE)
+                ->where(array('type_user' => 0));
+        $query = $this->db->get();
+        $results = $query->result();
+
+        // get the students who put the comments
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $student = $this->get_student_by_id($result->id_user);
+
+                if (!empty($data[$result->id_user])) {
+                    $interactions = $data[$result->id_user]['interactions'] + 1;
+                    $data[$result->id_user]['interactions'] = $interactions;
+                } else {
+                    $data[$result->id_user] = array(
+                        'id' => $student['id'],
+                        'name' => $student['last_name'] . ' ' . $student['first_name'],
+                        'faculty' => $student['faculty'],
+                        'avatar' => $student['avatar'],
+                        'interactions' => 1
+                    );
+                }
+            }
+        }
+
+        $this->db->select('*')
+            ->from($this::STUDENT_REPUTATION_TABLE);
+        $query = $this->db->get();
+        $results = $query->result();
+
+        // get the students who reviewed any comments
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $student = $this->get_student_by_id($result->id_student);
+
+                if (!empty($data[$result->id_student])) {
+                    $interactions = $data[$result->id_student]['interactions'] + 1;
+                    $data[$result->id_student]['interactions'] = $interactions;
+                } else {
+                    $data[$result->id_student] = array(
+                        'id' => $student['id'],
+                        'name' => $student['last_name'] . ' ' . $student['first_name'],
+                        'faculty' => $student['faculty'],
+                        'avatar' => $student['avatar'],
+                        'interactions' => 1
+                    );
+                }
+            }
+        }
+
+        // sort students by number of interactions
+        usort($data, function($a, $b) {
+            return $a['interactions'] - $b['interactions'];
+        });
+
+        return array_reverse($data, true);
     }
 }

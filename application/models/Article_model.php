@@ -16,6 +16,7 @@ class Article_model extends CI_Model
     const TABLE_ARTICLE_TAG = 'article_tag';
     const TABLE_ARTICLE_COMMENT = 'article_comment';
     const TABLE_ARTICLE_COMMENT_THUMB = 'article_comment_thumb';
+    const TABLE_STUDENT_REPUTATION = 'student_reputation';
     const TABLE_CATEGORY = 'category';
     const TABLE_TAG = 'tag';
     const TABLE_STUDENT = 'student';
@@ -90,12 +91,12 @@ class Article_model extends CI_Model
         $this->db->where(array('id_article' => $article->id_article));
         $this->db->order_by('creation_date', 'asc');
         $query = $this->db->get($this::TABLE_ARTICLE_COMMENT);
-        $results = $query->result();
+        $resultsComments = $query->result();
         // careful here, twisted logic incoming ...
-        if (!empty($results)) {
+        if (!empty($resultsComments)) {
             /** @var $already_responded - Keep in this array the comments which have been already marked as answers to another comments */
             $already_responded = array();
-            foreach ($results as $result) {
+            foreach ($resultsComments as $result) {
                 // details for user who made the comment (name and avatar)
                 $user = $this->get_user_by_type($result->id_user, $result->type_user);
                 // if current comment is a response to another
@@ -157,7 +158,8 @@ class Article_model extends CI_Model
             'name_company' => $company['name'],
             'logo_company' => $company['logo'],
             'city_company' => $company['city'],
-            'comments' => array_reverse($comments, true)
+            'comments' => array_reverse($comments, true),
+            '#comments' => count($resultsComments)
         ), $categories_and_tags);
     }
 
@@ -281,7 +283,14 @@ class Article_model extends CI_Model
         $query = $this->db->get($this::TABLE_COMPANY);
         $result = $query->row();
 
-        return array('id' => $result->id, 'name' => $result->name, 'logo' => $result->logo, 'city' => $result->city);
+        return array(
+            'id' => $result->id,
+            'name' => $result->name,
+            'logo' => $result->logo,
+            'city' => $result->city,
+            'description' => $result->description,
+            'address' => $result->address
+        );
     }
 
     public function get_article_type($id)
@@ -335,22 +344,101 @@ class Article_model extends CI_Model
             $this->db->where('id', $id_user);
             $query = $this->db->get($this::TABLE_STUDENT);
             $result = $query->row();
-            // return name
-            return array(
-                'name' => $result->last_name . ' ' . $result->first_name,
-                'avatar' => assets_uploads_url() . $result->avatar
-            );
+            if (!empty($result)) {
+                // return name
+                return array(
+                    'name' => $result->last_name . ' ' . $result->first_name,
+                    'avatar' => assets_uploads_url() . $result->avatar
+                );
+            }
         } else {
             $this->db->select('*');
             $this->db->where('id', $id_user);
             $query = $this->db->get($this::TABLE_COMPANY);
             $result = $query->row();
-            // return name
-            return array(
-                'name' => $result->name,
-                'avatar' => assets_uploads_url() . $result->logo
-            );
+            if (!empty($result)) {
+                // return name
+                return array(
+                    'name' => $result->name,
+                    'avatar' => assets_uploads_url() . $result->logo
+                );
+            }
         }
+    }
+
+    public function get_articles_by_category($id_category)
+    {
+        $this->db->select('*')
+            ->from($this::TABLE_ARTICLE_CATEGORY)
+            ->join($this::TABLE_ARTICLE, $this::TABLE_ARTICLE_CATEGORY . ".id_article = " . $this::TABLE_ARTICLE . ".id_article")
+            ->where(array($this::TABLE_ARTICLE_CATEGORY. ".id_category" => $id_category));
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $company = $this->get_company_by_id($result->id_company);
+                $data[$result->id_article] = array(
+                    'title' => $result->title,
+                    'poster' => $result->poster,
+                    'creation_date' => date('d.m.Y', strtotime($result->creation_date)),
+                    'creation_date_en' => date('M d, Y', strtotime($result->creation_date)),
+                    '#comments' => $this->get_number_of_comments($result->id_article),
+                    'id_company' => $result->id_company,
+                    'name' => $company['name'],
+                    'city' => $company['city'],
+                    'logo' => $company['logo'],
+                    'description' => $company['description'],
+                    'address' => $company['address'],
+                    'category_name' => $this->get_category_by_id($result->id_category)['name']
+                );
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    public function get_articles_by_tag($id_tag)
+    {
+        $this->db->select('*')
+            ->from($this::TABLE_ARTICLE_TAG)
+            ->join($this::TABLE_ARTICLE, $this::TABLE_ARTICLE_TAG . ".id_article = " . $this::TABLE_ARTICLE . ".id_article")
+            ->where(array($this::TABLE_ARTICLE_TAG. ".id_tag" => $id_tag));
+        $query = $this->db->get();
+        $results = $query->result();
+
+        if (!empty($results)) {
+            foreach ($results as $result) {
+                $company = $this->get_company_by_id($result->id_company);
+                $data[$result->id_article] = array(
+                    'title' => $result->title,
+                    'poster' => $result->poster,
+                    'creation_date' => date('d.m.Y', strtotime($result->creation_date)),
+                    'creation_date_en' => date('M d, Y', strtotime($result->creation_date)),
+                    '#comments' => $this->get_number_of_comments($result->id_article),
+                    'id_company' => $result->id_company,
+                    'name' => $company['name'],
+                    'city' => $company['city'],
+                    'logo' => $company['logo'],
+                    'description' => $company['description'],
+                    'address' => $company['address'],
+                    'tag_name' => $this->get_tag_by_id($result->id_tag)['name']
+                );
+            }
+            return $data;
+        }
+        return array();
+    }
+
+    public function get_number_of_comments($id_article)
+    {
+        $this->db->select('*');
+        $this->db->where(array('id_article' => $id_article));
+        $query = $this->db->get($this::TABLE_ARTICLE_COMMENT);
+        $results = $query->result();
+
+        // return number of comments
+        return count($results);
     }
 
     private function do_upload($input_name, $company_name){
@@ -527,16 +615,34 @@ class Article_model extends CI_Model
         );
 
         $this->db->insert($this::TABLE_ARTICLE_COMMENT_THUMB, $data_to_insert);
+        $insert_id = $this->db->insert_id();
+        // also, update student_reputation table if this review belongs to a student
+        if (intval($type_user) == 0) {
+            $this->db->insert($this::TABLE_STUDENT_REPUTATION, array(
+                'id_student' => $this->session->userdata['front_id'],
+                'date' => date('Y-m-d H:i:s'),
+                'id_article_comment_thumb' => $insert_id
+            ));
+        }
 
         return json_encode(
             array(
-                'id_review_comment' => $this->db->insert_id()
+                'id_review_comment' => $insert_id
             )
         );
     }
 
     public function delete_review_comment($id)
     {
+        $this->db->where('id_article_comment_thumb', $id);
+        $query = $this->db->get($this::TABLE_STUDENT_REPUTATION);
+        $result = $query->row();
+        if (!empty($result)) {
+            // delete also from student_reputation
+            $this->db->where('id_article_comment_thumb', $id);
+            $this->db->delete($this::TABLE_STUDENT_REPUTATION);
+        }
+
         $this->db->where('id_article_comment_thumb', $id);
         $this->db->delete($this::TABLE_ARTICLE_COMMENT_THUMB);
     }

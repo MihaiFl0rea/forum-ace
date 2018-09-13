@@ -102,3 +102,20 @@
 .fixed-height-210 {
     height: 210px;
 }
+
+h2.articles-header {
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.max-wdt-50 {
+    max-width: 50%;
+}
+
+.blue-header {
+    color: dodgerblue;
+}
+
+.justify-block {
+    text-align: justify;
+}

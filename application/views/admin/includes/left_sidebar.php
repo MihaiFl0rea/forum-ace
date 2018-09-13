@@ -39,15 +39,30 @@
                     </ul>
                 </li>
                 <li>
+                    <a class="has-arrow" href="<?php echo base_url(); ?>admin/categorii-articole" aria-expanded="false">
+                        <i class="fa fa-exchange"></i>
+                        <span class="hide-menu">Categorii articole</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?php echo base_url(); ?>admin/categorii-articole">Categorii</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="has-arrow" href="<?php echo base_url(); ?>admin/taguri-articole" aria-expanded="false">
+                        <i class="fa fa-hashtag"></i>
+                        <span class="hide-menu">Tag-uri articole</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?php echo base_url(); ?>admin/taguri-articole">Tag-uri</a></li>
+                    </ul>
+                </li>
+                <li>
                     <a class="has-arrow" href="<?php echo base_url(); ?>admin/articole" aria-expanded="false">
                         <i class="fa fa-sticky-note-o"></i>
                         <span class="hide-menu">Articole</span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="<?php echo base_url(); ?>admin/articole">Articole</a></li>
-                        <li class="nav-devider"></li>
-                        <li><a href="<?php echo base_url(); ?>admin/categorii-articole">Categorii articole</a></li>
-                        <li><a href="<?php echo base_url(); ?>admin/taguri-articole">Tag-uri articole</a></li>
                         <li class="nav-devider"></li>
                         <li><a href="<?php echo base_url(); ?>admin/adaugare-articol">Adauga articol</a></li>
                     </ul>

@@ -252,4 +252,10 @@ class Front_main extends CI_Controller
         return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     }
 
+    public function get_user_profile()
+    {
+        if (!empty($this->session->userdata['front_faculty'])) {
+            $this->load->view('profile', array('user' => $this->session->userdata));
+        }
+    }
 }

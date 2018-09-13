@@ -15,12 +15,14 @@
         <?php foreach ($recommendations as $recommendation): ?>
             <li>
                 <div class="post-entry-sidebar clearfix">
-                    <a href="#" class="left">
+                    <a href="<?php echo base_url() . 'articol/' . $recommendation['id']; ?>" class="left">
                         <img src="<?php echo assets_uploads_files_url() . strtolower(str_replace(' ', '', $recommendation['company_name'])) . '/' . $recommendation['poster']; ?>"
                              class="img-responsive img-centered thumbnail-img">
                     </a>
                     <div class="right">
-                        <h4 class="media-heading post-title"><a href="#"><?php echo $recommendation['title']; ?></a></h4>
+                        <h4 class="media-heading post-title">
+                            <a href="<?php echo base_url() . 'articol/' . $recommendation['id']; ?>"><?php echo $recommendation['title']; ?></a>
+                        </h4>
                         <span class="timestamp"><?php echo $recommendation['creation_date']; ?></span>
                     </div>
                 </div>

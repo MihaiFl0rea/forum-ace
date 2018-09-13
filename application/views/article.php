@@ -81,36 +81,29 @@
                                 </div>
                             </section>
                             <!-- end author info -->
+                            <?php if (!empty($company_articles)): ?>
                             <!-- related post -->
                             <section class="related-posts">
-                                <h3 class="section-heading">Postari asemanatoare</h3>
+                                <h3 class="section-heading">Mai multe articole de la <span class="blue-header""><?php echo $name_company; ?></span></h3>
                                 <ul class="list-unstyled related-post-list row">
+                                    <?php foreach ($company_articles as $id_article => $company_article): ?>
                                     <li class="col-md-4">
-                                        <a href="#">
-                                            <img src="<?php echo assets_img_url(); ?>blog/blog-med-img.jpg" class="img-responsive" alt="Related Post">
+                                        <a href="<?php echo base_url() . 'articol/' . $id_article; ?>">
+                                            <img src="<?php echo assets_uploads_files_url() . strtolower(str_replace(' ', '', $company_article['name'])) . '/' . $company_article['poster']; ?>"
+                                                 class="img-responsive" alt="Related Post">
                                         </a>
-                                        <a href="#" class="post-title">Monotonectally Pursue Extensive Process iImprovements</a>
+                                        <a href="<?php echo base_url() . 'articol/' . $id_article; ?>" class="post-title"><?php echo $company_article['title']; ?></a>
                                     </li>
-                                    <li class="col-md-4">
-                                        <a href="#">
-                                            <img src="<?php echo assets_img_url(); ?>blog/blog-med-img2.jpg" class="img-responsive" alt="Related Post">
-                                        </a>
-                                        <a href="#" class="post-title">Progressively Maximize Multidisciplinary Innovation Before Proactive E-markets</a>
-                                    </li>
-                                    <li class="col-md-4">
-                                        <a href="#">
-                                            <img src="<?php echo assets_img_url(); ?>blog/blog-med-img3.jpg" class="img-responsive" alt="Related Post">
-                                        </a>
-                                        <a href="#" class="post-title">Phosfluorescently conceptualize team</a>
-                                    </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </section>
                             <!-- end related post -->
+                            <?php endif; ?>
                             <!-- comments -->
                             <article class="comments">
                                 <h3 class="section-heading">Comentarii</h3>
-                                <?php if (!empty($article['comments'])): ?>
                                 <ul class="media-list">
+                                <?php if (!empty($article['comments'])): ?>
                                     <?php foreach ($article['comments'] as $id_comment => $comment): ?>
                                         <li class="media" id="row_comment_<?php echo $id_comment; ?>">
                                             <div id="comment_displayed_<?php echo $id_comment; ?>">
@@ -282,45 +275,10 @@
                                             <?php endif; ?>
                                         </li>
                                     <?php endforeach; ?>
-
+                                <?php else: ?>
+                                    <p class="no-comments">Nu a fost adaugat niciun comentariu, pana in acest moment.</p>
+                                <?php endif; ?>
                                     <!-- Hidden comments containers used for dinamically adding a comment -->
-                                    <ul class="media-list hidden" id="answered_comment_content">
-                                        <li class="media comment-by-author hidden" id="answered_content">
-                                            <div class="comment_displayed_">
-                                                <a href="#" class="media-left">
-                                                    <img src="<?php echo assets_img_url(); ?>blog/post-author.png" class="avatar" alt="avatar">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading comment-author"><a href="#">Ashley Young</a></h4><span class="timestamp">Jan 14, 2016 18:40 PM</span>
-                                                    <p class="comment-body"></p>
-                                                    <p class="comments-options" id="options_comment_">
-                                                        <span class="comm-color answer-to-comment">
-                                                            <i class="fa fa-reply"></i> <span>Raspunde</span>
-                                                        </span>
-                                                            <span class="comm-color thumbs-up-color m-l-10 m-r-10 like-comment">
-                                                            <i class="fa fa-thumbs-o-up"></i> <span>2</span>
-                                                        </span>
-                                                            <span class="comm-color thumbs-down-color m-r-10 dislike-comment">
-                                                            <i class="fa fa-thumbs-o-down"></i> <span>3</span>
-                                                        </span>
-                                                            <span class="comm-color pull-right edit-comment">
-                                                            <i class="fa fa-pencil-square-o"></i> <span>Editeaza</span>
-                                                        </span>
-                                                    </p>
-                                                    <div class="form-group" id="comment_to_add_">
-                                                        <textarea class="form-control" id="add_comment_to_" name="comment" rows="5" cols="30"></textarea>
-                                                        <button class="btn btn-danger btn-xs add-response-comment">Add</button>
-                                                        <button class="btn btn-info btn-xs cancel-adding-response">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" id="comment_edited_">
-                                                <textarea class="form-control" id="edit_comment_" name="comment" rows="5" cols="30"></textarea>
-                                                <button class="btn btn-success btn-xs update-comment">Edit</button>
-                                                <button class="btn btn-info btn-xs cancel-editing">Cancel</button>
-                                            </div>
-                                        </li>
-                                    </ul>
                                     <li class="media hidden" id="typical_comment">
                                         <div id="comment_displayed_">
                                             <a href="#" class="media-left">
@@ -348,9 +306,6 @@
                                     </li>
                                     <!-- End of hidden comments containers -->
                                 </ul>
-                                <?php else: ?>
-                                <p>Nu a fost adaugat niciun comentariu, pana in acest moment.</p>
-                                <?php endif; ?>
                             </article>
                             <!--<button type="button" class="btn btn-default center-block">Mai multe comentarii</button>-->
                             <!-- end comments -->
@@ -376,10 +331,10 @@
                         <div class="col-md-3">
                             <!-- sidebar -->
                             <div class="sidebar">
-<!--                                --><?php //$this->view('includes/widget_recommended'); ?>
+                                <?php $this->view('includes/widget_recommended'); ?>
                                 <?php $this->view('includes/widget_categories'); ?>
                                 <?php $this->view('includes/widget_tags'); ?>
-                                <?php $this->view('includes/widget_search'); ?>
+<!--                                --><?php //$this->view('includes/widget_search'); ?>
                             </div>
                             <!-- end sidebar -->
                         </div>

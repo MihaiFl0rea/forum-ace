@@ -30,10 +30,12 @@ if (!empty($flash_data['flash_message'])) {
         <div id="main-nav-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav main-navbar-nav">
                 <li><a href="<?php echo base_url() . 'acasa'; ?>">Noutati</a></li>
-                <li><a href="<?php echo base_url() . 'trending'; ?>">Trending!</a></li>
+<!--                <li><a href="--><?php //echo base_url() . 'trending'; ?><!--">Trending!</a></li>-->
                 <li><a href="<?php echo base_url() . 'companii'; ?>">Companii</a></li>
                 <li><a href="<?php echo base_url() . 'studenti-activi'; ?>">Studenti activi!</a></li>
+                <?php if (!empty($this->session->userdata['front_faculty'])): ?>
                 <li><a href="<?php echo base_url() . 'profil'; ?>">Profilul meu</a></li>
+                <?php endif; ?>
                 <li><a href="<?php echo base_url() . 'logout'; ?>"><span><i class="fa fa-sign-out"></i> Log out</span></a></li>
             </ul>
         </div>

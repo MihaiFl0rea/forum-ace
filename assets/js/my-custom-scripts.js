@@ -165,7 +165,9 @@ $(document).ready(function(){
             // add the new comment as the first one in the list
             var commentsContainer = $('article.comments ul.media-list').first();
             commentsContainer.prepend('<li class="media">' + $('#typical_comment').html() + '</li>');
-
+            if ($('p.no-comments').length) {
+                $('p.no-comments').remove();
+            }
             // build the new comment's container
             var inserted_comment = commentsContainer.find('li').first();
             // map the new inserted comment into DOM
@@ -225,14 +227,14 @@ $(document).ready(function(){
 
             // if another response has been already added, just add another element to the list
             if (mainContainer.find('ul.media-list').length) {
-                mainContainer.find('.media-body ul.media-list').append('<li class="media comment-by-author">' + $('#typical_comment').html() + '</li>');
+                mainContainer.find('.media-body ul.media-list').append('<li class="media comment-by-author" id="row_comment_' + response.id_comment + '">' + $('#typical_comment').html() + '</li>');
             } else {
                 // otherwise, create the list
                 mainContainer.find('.media-body').append('<ul class="media-list">'
-                    + '<li class="media comment-by-author">' + $('#typical_comment').html() + '</li>' + '</ul>');
+                    + '<li class="media comment-by-author" id="row_comment_' + response.id_comment + '">' + $('#typical_comment').html() + '</li>' + '</ul>');
             }
             // map the inserted comment into DOM
-            var inserted_comment = mainContainer.find('.media-body ul.media-list li').first();
+            var inserted_comment = mainContainer.find('#row_comment_' + response.id_comment);
             map_inserted_comment(inserted_comment, response);
         });
     });
@@ -260,7 +262,7 @@ $(document).ready(function(){
         $.post('../editare-comentariu', {'id_comment': commentId, 'updated_comment': updatedComment}, function(response){
             response = JSON.parse(response);
 
-            $('#row_comment_' + commentId).find('.media-body p.comment-body').html(response.comment);
+            $('#row_comment_' + commentId).find('.media-body p.comment-body').first().html(updatedComment);
             $('#comment_edited_' + commentId).addClass('hidden');
             $('#comment_displayed_' + commentId).removeClass('hidden');
         });

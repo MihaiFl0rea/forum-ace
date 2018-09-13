@@ -23,22 +23,6 @@ class Admin_main extends CI_Controller
             redirect(site_url() . 'admin/login/');
         }
 
-        /*front page*/
-        $userSession = $this->session->userdata;
-        /*$warningMessages = is_array($this->session->flashdata('warning_messages')) ? $this->session->flashdata('warning_messages') : array();
-        if ($this->user_model->hasFirmAssociated($userSession['role'], $userSession['id_company'])) {
-            if (!empty($warningMessages)) {
-                unset($warningMessages['update-profile']);
-            }
-            $this->session->set_flashdata('warning_messages', $warningMessages);
-
-        } else {
-            if (empty($warningMessages['update-profile'])) {
-                $warningMessages['update-profile'] = 'Please <a href="admin/my-profile" class="alert-link">update</a> your profile! ';
-            }
-        }
-        $this->session->set_flashdata('warning_messages', $warningMessages);*/
-
         $this->load->model('Company_model', 'company_model', TRUE);
         $this->load->model('Student_model', 'student_model', TRUE);
 

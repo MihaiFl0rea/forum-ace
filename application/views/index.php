@@ -28,7 +28,7 @@
                                             </h2>
                                             <div class="meta-line">
                                                 <span class="post-date"><i class="fa fa-calendar"></i><?php echo $latest_article['creation_date_en']; ?></span>
-                                                <span class="post-comment"><i class="fa fa-comments"></i> <a href="<?php echo base_url() . 'articol/' . $latest_article['id']; ?>">0 Comentarii</a></span>
+                                                <span class="post-comment"><i class="fa fa-comments"></i> <a href="<?php echo base_url() . 'articol/' . $latest_article['id']; ?>"><?php echo $latest_article['#comments']; ?> Comentarii</a></span>
                                             </div>
                                         </div>
                                         <div class="excerpt">
@@ -66,78 +66,12 @@
                                 </div>
                             </section>
                             <!-- end latest posts -->
-                            <!-- categorized posts -->
-                            <section class="categorized-posts">
-                                <h2 class="section-heading pull-left">CREATIVE</h2>
-                                <a href="#" class="see-all-posts pull-right">See all posts in Creative <i class="fa fa-long-arrow-right"></i></a>
-                                <div class="clearfix"></div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img10.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Globally benchmark holistic ideas for technologies</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img9.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Completely incubate high-quality e-markets</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img8.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Assertively mesh best-of-breed e-business</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img7.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Holisticly redefine pandemic infrastructures</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end categorized posts -->
-                            <!-- categorized posts -->
-                            <section class="categorized-posts">
-                                <h2 class="section-heading pull-left">POPULAR</h2>
-                                <a href="#" class="see-all-posts pull-right">See all posts in Popular <i class="fa fa-long-arrow-right"></i></a>
-                                <div class="clearfix"></div>
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img6.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Globally benchmark holistic ideas for technologies</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img5.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Completely incubate high-quality e-markets</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img4.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Assertively mesh best-of-breed e-business</a></h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="post-entry post-entry-simple">
-                                            <a href="#"><img src="assets/img/blog/blog-med-img3.jpg" class="img-responsive" alt="Post Thumbnail"></a>
-                                            <h3 class="post-title"><a href="#">Holisticly redefine pandemic infrastructures</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end categorized posts -->
                         </div>
                         <!-- END MAIN CONTENT -->
                         <!-- SIDEBAR CONTENT -->
                         <div class="col-md-4 col-lg-3">
                             <div class="sidebar">
-                                <?php $this->view('includes/widget_search'); ?>
+<!--                                --><?php //$this->view('includes/widget_search'); ?>
                                 <?php $this->view('includes/widget_recommended'); ?>
                                 <?php $this->view('includes/widget_categories'); ?>
                                 <?php $this->view('includes/widget_tags'); ?>
